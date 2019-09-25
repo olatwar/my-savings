@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Savings</title>
+    <link rel='stylesheet' media='screen' href='/css/bootstrap.min.css'>
+    <script type='text/javascript' src='/js/bootstrap.min.js'></script>
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h5>Categories</h5>
+        </div>
+    </div>
+    <a href="/add-category">Add Category</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">percent</th>
+            <th scope="col">price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category: ${categories}">
+            <td th:text="${category.name}"/>
+            <td th:text="${category.percent}"/>
+            <td th:text="${category.amount}"/>
+            <td>
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-info btn-sm inline" th:href="@{/category-detail/{categoryId}/(categoryId=${category.id})}">details</a>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-info btn-sm inline" th:href="@{/edit-category/{categoryId}/(categoryId=${category.id})}">edit</a>
+                    </div>
+                    <div class="col-6">
+                        <form method="post" action="#" th:action="@{/delete-category}" th:object="${category}">
+                            <input type="hidden" th:value="*{id}" id="id" name="id"/>
+                            <input class="btn btn-danger btn-sm" type="submit" value="delete">
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

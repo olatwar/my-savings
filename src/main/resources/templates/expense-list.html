@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"> <head>
+    <meta charset="UTF-8">
+    <title>Savings</title>
+    <link rel='stylesheet' media='screen' href='/css/bootstrap.min.css'>
+    <script type='text/javascript' src='/js/bootstrap.min.js'></script>
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h5>Expenses</h5>
+        </div>
+    </div>
+    <a href="/expenses/add">Add Expense</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">cost</th>
+            <th scope="col">category</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="expense: ${expenses}">
+            <td th:text="${expense.name}"/>
+            <td th:text="${expense.cost}"/>
+            <td th:text="${expense.category.name}"/>
+            <td>
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-info btn-sm inline" th:href="@{/expense-detail/{expenseID}/(expenseId=${expense.id})}">details</a>
+                    </div>
+                    <div class="col-6">
+                        <a class="btn btn-info btn-sm inline" th:href="@{/edit-expense/{expenseId}/(expenseId=${expense.id})}">edit</a>
+                    </div>
+                    <div class="col-6">
+                        <form method="post" action="#" th:action="@{/expenses/delete}" th:object="${expense}">
+                            <input type="hidden" th:value="*{id}" id="id" name="id"/>
+                            <input class="btn btn-danger btn-sm" type="submit" value="delete">
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

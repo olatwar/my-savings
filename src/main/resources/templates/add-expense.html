@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"> <head>
+    <meta charset="UTF-8">
+    <title>AddExpense</title>
+    <link rel='stylesheet' media='screen' href='/css/bootstrap.min.css'>
+    <script type='text/javascript' src='/js/bootstrap.min.js'></script>
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h5>New Expense</h5>
+        </div>
+    </div>
+    <form method="post" action="#" th:action="@{/expenses/save}" th:object="${expense}">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td th:text="name"/>
+                <td >
+                    <input type="text" class="form-control" id="name-input" th:field="*{name}"/>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="cost"/>
+                <td >
+                    <input type="text" class="form-control" id="cost-input" th:field="*{cost}"/>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="category"/>
+                <td >
+                    <input type="text" class="form-control" id="category-input" th:field="*{category}"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td >
+                    <input class="btn btn-info" type="submit" th:value="save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <a th:href="@{/expenses/list}">Expense List</a></td>
+</div>
+</body>
+</html>
